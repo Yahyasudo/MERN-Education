@@ -35,7 +35,7 @@ export const register = async(req,res) =>{
             }
 
             await sendMail(email,"e-learning",data);
-            
+
             res.status(200).json({
                message : "otp send to your email",
                activationToken
@@ -47,4 +47,41 @@ export const register = async(req,res) =>{
                 message : error.message,
             })
          }
+}
+
+
+export const verifyUser = async(req,res) =>{
+   try {
+      const {otp,activationToken} = req.body;
+      const verify = jwt.verify(activationToken,process.env.Activation_secret);
+
+      if(!verify){
+         return res.status(400).json({
+            message : "invalid token",
+         });
+      }
+
+
+      if(verify.otp !== otp){
+         return res.status(400).json({
+            message : "invalid otp",
+         });
+      }
+
+      await User.create({
+         name : verify.user.name,
+         email : verify.user.email,
+         password : verify.user.password,
+      });
+
+      res.status(200).json({
+         message : "user register successfully",
+      });
+
+
+   } catch (error) {
+      res.status(500).json({
+         message : error.message,
+      });
+   }
 }
