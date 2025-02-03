@@ -8,6 +8,8 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.get('/', (req, res) => res.send('Server is running'));
+//middleware
+app.use(express.json());
 
 //using routes
 app.use('/api', userRouter);

@@ -6,5 +6,5 @@ export const conn = async() =>{
     } catch (error) {
         console.log(error);
     }
-
+ 
 }
