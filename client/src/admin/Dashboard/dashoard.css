@@ -1,0 +1,35 @@
+.main-content {
+  padding: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  min-height: 80vh;
+}
+
+.box {
+  background-color: #ffffff;
+  width: 260px;
+  height: 128PX;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-6px);
+}
+
+.box p:first-child {
+  font-size: 18px;
+  color: #64748b; /* Gray-blue */
+  margin-bottom: 10px;
+}
+
+.box p:last-child {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1e293b; /* Darker text */
+}

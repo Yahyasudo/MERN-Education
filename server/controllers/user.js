@@ -26,7 +26,7 @@ export const register = async(req,res) =>{
                user,
                otp
             },process.env.Activation_secret,{
-               expiresIn: "5m",
+               expiresIn: "1h",
             });
 
             const data = {
@@ -54,6 +54,7 @@ export const verifyUser = async(req,res) =>{
    try {
       const {otp,activationToken} = req.body;
       const verify = jwt.verify(activationToken,process.env.Activation_secret);
+     
 
       if(!verify){
          return res.status(400).json({
@@ -85,3 +86,54 @@ export const verifyUser = async(req,res) =>{
       });
    }
 }
+
+
+export const loginUser =async(req,res)=>{
+   try {
+      const {email, password} = req.body
+      const user = await User.findOne({email})
+
+       if (!user) {
+         return res.status(400).json({
+            message: "email don't find"
+         })
+       }
+
+       const mathpassword = await bcrypt.compare(password, user.password);
+       if (!mathpassword) {
+         return res.status(400).json({
+            message: "password not correct"
+         })
+       }
+
+       const token = await jwt.sign({_id: user._id}, process.env.Jwt_Sec,{
+         expiresIn: "15d",
+       });
+
+       res.json({
+         message: `welcome mr ${user.name}`,
+         token,
+         user
+       })
+
+   } catch (error) {
+      res.status(500).json({
+         message : error.message,
+      });
+   }
+}
+
+export const myProfil = async(req, res)=>{
+   try {
+      const user = await User.findById(req.user._id)
+      res.json({
+         user
+      })
+   } catch (error) {
+      res.status(500).json({
+         message : error.message,
+      });
+   }
+
+}
+

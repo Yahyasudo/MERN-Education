@@ -1,0 +1,42 @@
+.course-study-page{
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 80vh;
+
+    h2 {
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+    }
+
+    h4 {
+        font-size: 21px;
+        color: #333;
+        text-align: center;
+    }
+
+    h5 {
+        font-size: 20px;
+        color: #333;
+        text-align: center;
+    }
+
+    a{
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+        border: #333 solid 1px;
+        border-radius: 5px;
+        padding: 10px 20px;
+        background-color: white;
+
+        &:hover {
+            color: #0056b3;
+        }
+    }
+}
